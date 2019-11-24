@@ -11,6 +11,12 @@ def init_bot(token) -> tb.TeleBot:
     def answer(message):
         bot.send_message(message.chat.id, "I don't want to live!!!\nHlep me!")
     
+    @bot.message_handler(commands=['help'])
+    def answer(message):
+        print(message)
+        bot.send_message(message.chat.id, "We all are helpless...")
+    
+    
     return bot
 
 
