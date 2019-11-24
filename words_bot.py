@@ -1,6 +1,17 @@
 from typing import Tuple
+from config import TOKEN
 import telebot as tb
 import googletrans as gt
+
+
+def init_bot(token) -> tb.TeleBot:
+    bot = tb.TeleBot(token)
+    
+    @bot.message_handler(content_types=["text"])
+    def answer(self, message):
+        self.instance.send_message(message.chat.id, "I don't want to live!!!\nHlep me!")
+    
+    return bot
 
 
 def translate(phrase: str, source='en', target='ru') -> str:
@@ -18,10 +29,11 @@ def add_to_to_learn(word, meaning) -> None:
 def del_from_to_learn(word, meaning) -> None:
     pass
 
-
+   
 def main():
-    pass
-
+    bot = init_bot(TOKEN)
+    bot.polling(none_stop=True)
+    
 
 if __name__ == '__main__':
     main()
