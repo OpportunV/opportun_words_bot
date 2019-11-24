@@ -7,14 +7,14 @@ import googletrans as gt
 def init_bot(token) -> tb.TeleBot:
     bot = tb.TeleBot(token)
     
-    @bot.message_handler(content_types=["text"])
-    def echo(message):
-        bot.send_message(message.chat.id, "I don't want to live!!!\nHlep me!")
-    
     @bot.message_handler(commands=['help'])
     def help_answer(message):
         print(message)
         bot.send_message(message.chat.id, "We all are helpless...")
+
+    @bot.message_handler(content_types=["text"])
+    def echo(message):
+        bot.send_message(message.chat.id, "I don't want to live!!!\nHlep me!")
     
     return bot
 
