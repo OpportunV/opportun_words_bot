@@ -8,8 +8,8 @@ def init_bot(token) -> tb.TeleBot:
     bot = tb.TeleBot(token)
     
     @bot.message_handler(content_types=["text"])
-    def answer(self, message):
-        self.instance.send_message(message.chat.id, "I don't want to live!!!\nHlep me!")
+    def answer(message):
+        bot.send_message(message.chat.id, "I don't want to live!!!\nHlep me!")
     
     return bot
 
