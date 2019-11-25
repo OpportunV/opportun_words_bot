@@ -6,7 +6,7 @@ from flask import Flask, request
 
 
 def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
-    bot = tb.TeleBot(token)
+    bot = tb.TeleBot(token, threaded=False)
     
     bot.remove_webhook()
     bot.set_webhook(url=url)
@@ -47,4 +47,4 @@ def del_from_to_learn(word, meaning) -> None:
     pass
 
 
-bot, app = init_bot(config.TOKEN, config.URL)
+my_bot, my_app = init_bot(config.TOKEN, config.URL)
