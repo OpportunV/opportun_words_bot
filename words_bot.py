@@ -1,11 +1,23 @@
 from typing import Tuple
-from config import TOKEN
+import config
 import telebot as tb
 import googletrans as gt
+from flask import Flask, request
 
 
-def init_bot(token) -> tb.TeleBot:
+def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     bot = tb.TeleBot(token)
+    
+    bot.remove_webhook()
+    bot.set_webhook(url=url)
+    
+    app = Flask(__name__)
+    
+    @app.route('/' + config.URL.split('/')[-1], methods=['POST'])
+    def web_hook() -> Tuple[str, int]:
+        update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
+        bot.process_new_updates([update])
+        return 'ok', 200
     
     @bot.message_handler(commands=['help'])
     def help_answer(message):
@@ -16,7 +28,7 @@ def init_bot(token) -> tb.TeleBot:
     def echo(message):
         bot.send_message(message.chat.id, "I don't want to live!!!\nHlep me!")
     
-    return bot
+    return bot, app
 
 
 def translate(phrase: str, source='en', target='ru') -> str:
@@ -36,9 +48,8 @@ def del_from_to_learn(word, meaning) -> None:
 
    
 def main():
-    bot = init_bot(TOKEN)
-    bot.polling(none_stop=True)
-    
+    bot, app = init_bot(config.TOKEN, config.URL)
+
 
 if __name__ == '__main__':
     main()
