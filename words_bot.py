@@ -46,10 +46,5 @@ def add_to_to_learn(word, meaning) -> None:
 def del_from_to_learn(word, meaning) -> None:
     pass
 
-   
-def main():
-    bot, app = init_bot(config.TOKEN, config.URL)
 
-
-if __name__ == '__main__':
-    main()
+bot, app = init_bot(config.TOKEN, config.URL)
