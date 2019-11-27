@@ -1,17 +1,17 @@
 import json
-from typing import Dict
+from typing import Dict, List
 
 
 class Destinations:
     def __init__(self, filename='destinations.json'):
         self.filename = filename
         
-    def get(self):
+    def get(self) -> List:
         with open(self.filename) as f:
             destinations: list = json.load(f)
         return destinations
     
-    def update(self, new):
+    def update(self, new) -> None:
         with open(self.filename, 'w') as f:
             json.dump(new, f)
 

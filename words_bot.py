@@ -39,7 +39,8 @@ def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         return 'ok', 200
     
     def on_timer_sender():
-        
+        for dest in destinations.get():
+            send_rand_word(dest)
         timer = Timer(60, on_timer_sender)
         timer.start()
     
@@ -67,7 +68,7 @@ def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         
     @bot.message_handler(commands=['more'])
     def more_answer(message):
-        reply = choice(get_reply('stop', message.from_user.language_code, replies))
+        reply = choice(get_reply('more', message.from_user.language_code, replies))
         bot.send_message(message.chat.id, reply)
         send_rand_word(message.chat.id)
     
