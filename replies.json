@@ -1,12 +1,12 @@
 {
   "help": {
-    "en": "We all are helpless...\n\\start to subscribe\n\\stop to unsubscribe\n\\more for more"
+    "en": "We all are helpless...\n/start to subscribe\n/stop to unsubscribe\n/more for more"
   },
   "start_True": {
-    "en": "You're going to receive some phrases from now on! Congrats!\n\nType \\stop to stop"
+    "en": "You're going to receive some phrases from now on! Congrats!\n\nType /stop to stop"
   },
   "start_False": {
-    "en": "Something went wrong... Are u alrady subscribed? \n\nType \\stop to stop"
+    "en": "Something went wrong... Are u alrady subscribed? \n\nType /stop to stop"
   },
   "stop_True": {
     "en": "Done. Already miss u :("
