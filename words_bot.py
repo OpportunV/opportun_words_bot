@@ -81,8 +81,8 @@ def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
 
     utc1 = datetime.utcnow()
     dt = (utc1 - datetime(utc1.year, utc1.month, utc1.day, 18, 0, 0)).total_seconds()
-    t = Timer(abs(60), on_timer_sender)
-    t.start()
+    # t = Timer(abs(60), on_timer_sender)
+    # t.start()
     
     return bot, app
 

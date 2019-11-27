@@ -44,7 +44,8 @@ def for_test():
     
 
 def main():
-    pass
+    urban = RandomUrban()
+    print(f"{urban.word}\n\n{urban.meaning}\n\n{urban.example}")
     
 
 if __name__ == '__main__':
