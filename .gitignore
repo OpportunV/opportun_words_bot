@@ -107,4 +107,6 @@ venv.bak/
 # config
 config.py
 
+# my files
 *.tmp
+dictionary.json

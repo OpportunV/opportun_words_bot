@@ -1,0 +1,23 @@
+{
+  "help": {
+    "en": "We all are helpless...\n\\start to subscribe\n\\stop to unsubscribe\n\\more for more"
+  },
+  "start_True": {
+    "en": "You're going to receive some phrases from now on! Congrats!\n\nType \\stop to stop"
+  },
+  "start_False": {
+    "en": "Something went wrong... Are u alrady subscribed? \n\nType \\stop to stop"
+  },
+  "stop_True": {
+    "en": "Done. Already miss u :("
+  },
+  "stop_False": {
+    "en": "U didn't even subscribe! :angry:"
+  },
+  "more": {
+    "en": ["Here u go!", "Already sending...", "I like that!", "I'm tired, could you stop for a while?"]
+  },
+  "default": {
+    "en": "I don't want to live!\nHlep me!"
+  }
+}
