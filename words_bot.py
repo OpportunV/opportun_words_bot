@@ -45,6 +45,7 @@ def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         timer.start()
     
     def send_rand_word(destination):
+        return
         urban = words.RandomUrban()
         message = f"{urban.word}\n\n{urban.meaning}\n\n{urban.example}"
         bot.send_message(destination, message)
