@@ -6,6 +6,7 @@ from datetime import datetime
 from random import choice
 from threading import Timer
 
+import config
 import words
 import json_handler as jh
 
@@ -16,8 +17,6 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
 
     bot.remove_webhook()
     bot.set_webhook(url=url)
-    with open('micro_log.dat', 'a') as f:
-        print(f'{url} connected to bot', file=f)
 
     app = Flask(__name__)
     
@@ -35,9 +34,6 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     
     @app.route('/' + url.split('/')[-1], methods=['POST'])
     def web_hook():
-        with open('micro_log.dat', 'a') as f:
-            print(request, file=f)
-            print(url.split('/'), file=f)
         update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
         bot.process_new_updates([update])
         return 'ok', 200
@@ -88,9 +84,10 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
 
     replies = jh.get_replies()
 
-    # utc1 = datetime.utcnow()
-    # dt = (utc1 - datetime(utc1.year, utc1.month, utc1.day, 18, 0, 0)).total_seconds()
-    # t = Timer(60, on_timer_sender)
-    # t.start()
+    utc1 = datetime.utcnow()
+    dt = (datetime(utc1.year, utc1.month, utc1.day, 18, 20, 0) - utc1).total_seconds()
+    dt = (dt + config.send_delta_time) % config.send_delta_time
+    t = Timer(dt, on_timer_sender)
+    t.start()
     
     return bot, app
