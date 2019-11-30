@@ -34,6 +34,7 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     
     @app.route('/' + config.URL.split('/')[-1], methods=['POST'])
     def web_hook():
+        print(request)
         update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
         bot.process_new_updates([update])
         return 'ok', 200
@@ -84,9 +85,9 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
 
     replies = jh.get_replies()
 
-    utc1 = datetime.utcnow()
-    dt = (utc1 - datetime(utc1.year, utc1.month, utc1.day, 18, 0, 0)).total_seconds()
-    t = Timer(60, on_timer_sender)
-    t.start()
+    # utc1 = datetime.utcnow()
+    # dt = (utc1 - datetime(utc1.year, utc1.month, utc1.day, 18, 0, 0)).total_seconds()
+    # t = Timer(60, on_timer_sender)
+    # t.start()
     
     return bot, app
