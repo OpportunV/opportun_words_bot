@@ -4,7 +4,7 @@ import config
 
 
 bot, app = init_bot_app(config.TOKEN, config.URL)
-sslify = SSLify(app)
+# sslify = SSLify(app)
 
 
 if __name__ == '__main__':
