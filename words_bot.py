@@ -6,7 +6,6 @@ from datetime import datetime
 from random import choice
 from threading import Timer
 
-import config
 import words
 import json_handler as jh
 
@@ -32,9 +31,11 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         
         return reply
     
-    @app.route('/' + config.URL.split('/')[-1], methods=['POST'])
+    @app.route('/' + url.split('/')[-1], methods=['POST'])
     def web_hook():
-        print(request)
+        with open('micro_log.dat') as f:
+            print(request, file=f)
+            print(url.split('/'), file=f)
         update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
         bot.process_new_updates([update])
         return 'ok', 200
