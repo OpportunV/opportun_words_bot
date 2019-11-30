@@ -16,6 +16,8 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
 
     bot.remove_webhook()
     bot.set_webhook(url=url)
+    with open('micro_log.dat') as f:
+        print(f'{url} connected to bot', file=f)
 
     app = Flask(__name__)
     
