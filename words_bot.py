@@ -37,6 +37,10 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
         bot.process_new_updates([update])
         return 'ok', 200
+
+    @app.route('/')
+    def index():
+        return 'test'
     
     def on_timer_sender():
         for dest in destinations.get():
