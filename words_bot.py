@@ -49,9 +49,8 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         timer.start()
     
     def send_rand_word(destination):
-        # return  # temporary solution due to server problems
         urban = words.RandomUrban()
-        message = f"{urban.word}\n\n{urban.meaning}\n\n{urban.example}"
+        message = f"{urban.word}\n{urban.link}\n\n{urban.meaning}\n\n{urban.example}"
         bot.send_message(destination, message)
     
     @bot.message_handler(commands=['help'])

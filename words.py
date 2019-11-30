@@ -14,8 +14,11 @@ class RandomUrban:
     
         soup = BeautifulSoup(r.content, 'html5lib')
         top_def = soup.find('div', class_='def-panel')
-    
-        self.word = top_def.find('a', class_='word').text
+        
+        word = top_def.find('a', class_='word')
+        
+        self.link = 'https://www.urbandictionary.com{}'.format(word.attrs.get('href'))
+        self.word = word.text
         self.meaning = top_def.find('div', class_='meaning').text
         self.example = top_def.find('div', class_='example').text
         
@@ -45,7 +48,7 @@ def for_test():
 
 def main():
     urban = RandomUrban()
-    print(f"{urban.word}\n\n{urban.meaning}\n\n{urban.example}")
+    print(f"{urban.word}\n{urban.link}\n\n{urban.meaning}\n\n{urban.example}")
     
 
 if __name__ == '__main__':
