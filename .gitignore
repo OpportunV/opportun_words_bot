@@ -109,4 +109,4 @@ config.py
 
 # my files
 *.tmp
-dictionary.json
+json/dictionary.json

@@ -3,7 +3,7 @@ from typing import Dict, List
 
 
 class Destinations:
-    def __init__(self, filename='destinations.json'):
+    def __init__(self, filename='json/destinations.json'):
         self.filename = filename
         
     def get(self) -> List:
@@ -38,7 +38,7 @@ class Destinations:
         return True
     
 
-def get_replies(filename: str = 'replies.json') -> Dict:
+def get_replies(filename: str = 'json/replies.json') -> Dict:
     with open(filename) as f:
         return json.load(f)
 
