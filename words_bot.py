@@ -51,7 +51,7 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     def send_rand_word(destination):
         urban = words.RandomUrban()
         message = f"{urban.word}\n{urban.link}\n\n{urban.meaning}\n\n{urban.example}"
-        bot.send_message(destination, message)
+        bot.send_message(destination, message, disable_web_page_preview=True)
     
     @bot.message_handler(commands=['help'])
     def help_answer(message):
