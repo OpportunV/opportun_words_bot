@@ -11,7 +11,7 @@ import words
 import json_handler as jh
 
 
-def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
+def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     
     bot = tb.TeleBot(token, threaded=False)
 
@@ -45,7 +45,7 @@ def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         timer.start()
     
     def send_rand_word(destination):
-        return  # temporary solution due to server problems
+        # return  # temporary solution due to server problems
         urban = words.RandomUrban()
         message = f"{urban.word}\n\n{urban.meaning}\n\n{urban.example}"
         bot.send_message(destination, message)
@@ -86,6 +86,3 @@ def init_bot(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     # t.start()
     
     return bot, app
-
-
-my_bot, my_app = init_bot(config.TOKEN, config.URL)
