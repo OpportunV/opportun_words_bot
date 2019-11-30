@@ -110,3 +110,4 @@ config.py
 # my files
 *.tmp
 json/dictionary.json
+json/destinations.json

@@ -45,7 +45,7 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     def on_timer_sender():
         for dest in destinations.get():
             send_rand_word(dest)
-        timer = Timer(60, on_timer_sender)
+        timer = Timer(config.send_delta_time, on_timer_sender)
         timer.start()
     
     def send_rand_word(destination):
@@ -85,7 +85,7 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     replies = jh.get_replies()
 
     utc1 = datetime.utcnow()
-    dt = (datetime(utc1.year, utc1.month, utc1.day, 18, 20, 0) - utc1).total_seconds()
+    dt = (datetime(utc1.year, utc1.month, utc1.day, 18, 25, 0) - utc1).total_seconds()
     dt = (dt + config.send_delta_time) % config.send_delta_time
     t = Timer(dt, on_timer_sender)
     t.start()
