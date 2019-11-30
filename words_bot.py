@@ -16,7 +16,7 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
 
     bot.remove_webhook()
     bot.set_webhook(url=url)
-    with open('micro_log.dat') as f:
+    with open('micro_log.dat', 'a') as f:
         print(f'{url} connected to bot', file=f)
 
     app = Flask(__name__)
@@ -35,7 +35,7 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     
     @app.route('/' + url.split('/')[-1], methods=['POST'])
     def web_hook():
-        with open('micro_log.dat') as f:
+        with open('micro_log.dat', 'a') as f:
             print(request, file=f)
             print(url.split('/'), file=f)
         update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
