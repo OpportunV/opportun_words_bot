@@ -1,7 +1,7 @@
 import telebot as tb
 from flask import Flask, request
 
-from typing import Tuple
+from typing import Union, List, Optional
 from datetime import datetime
 from random import choice
 from threading import Timer
@@ -11,14 +11,20 @@ import words
 import json_handler as jh
 
 
-def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
+def init_bot(token: str, url: Optional[str] = None, app: Optional[Flask] = None) -> tb.TeleBot:
+    """if app is None there is no need to pass url, but if app is not None url is required"""
     
     bot = tb.TeleBot(token, threaded=False)
-
-    bot.remove_webhook()
-    bot.set_webhook(url=url)
-
-    app = Flask(__name__)
+    
+    if app is not None:
+        bot.remove_webhook()
+        bot.set_webhook(url=url)
+        
+        @app.route('/' + url.split('/')[-1], methods=['POST'])
+        def web_hook():
+            update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
+            bot.process_new_updates([update])
+            return 'ok', 200
     
     destinations = jh.Destinations()
     
@@ -32,26 +38,19 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
         
         return reply
     
-    @app.route('/' + url.split('/')[-1], methods=['POST'])
-    def web_hook():
-        update = tb.types.Update.de_json(request.stream.read().decode('utf-8'))
-        bot.process_new_updates([update])
-        return 'ok', 200
-
-    @app.route('/')
-    def index():
-        return 'test'
-    
     def on_timer_sender():
-        for dest in destinations.get():
-            send_rand_word(dest)
+        send_rand_word(destinations.get())
         timer = Timer(config.send_delta_time, on_timer_sender)
         timer.start()
     
-    def send_rand_word(destination):
+    def send_rand_word(destination: Union[int, List[int]]):
         urban = words.RandomUrban()
-        message = f"{urban.word}\n{urban.link}\n\n{urban.meaning}\n\n{urban.example}"
-        bot.send_message(destination, message, disable_web_page_preview=True)
+        message = f"{urban.word}\n\n{urban.meaning}\n\n{urban.example}\n{urban.link}"
+        try:
+            for dest in destination:
+                bot.send_message(dest, message, disable_web_page_preview=True)
+        except TypeError:
+            bot.send_message(destination, message, disable_web_page_preview=True)
     
     @bot.message_handler(commands=['help'])
     def help_answer(message):
@@ -89,4 +88,10 @@ def init_bot_app(token: str, url: str) -> Tuple[tb.TeleBot, Flask]:
     t = Timer(dt, on_timer_sender)
     t.start()
     
-    return bot, app
+    return bot
+
+
+if __name__ == '__main__':
+    tbot = init_bot(config.TOKEN)
+    tbot.remove_webhook()
+    tbot.polling(none_stop=True)

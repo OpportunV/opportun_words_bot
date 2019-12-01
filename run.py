@@ -1,8 +1,10 @@
-from words_bot import init_bot_app
+from words_bot import init_bot
+from flask_app import init_app
 import config
 
 
-bot, app = init_bot_app(config.TOKEN, config.URL)
+app = init_app()
+bot = init_bot(config.TOKEN, config.URL, app)
 
 
 if __name__ == '__main__':
