@@ -1,8 +1,8 @@
+from typing import List
+
 import googletrans as gt
 import requests
 from bs4 import BeautifulSoup
-
-from typing import List
 
 from config import id_white_list
 

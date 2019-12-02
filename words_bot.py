@@ -1,10 +1,10 @@
-import telebot as tb
-from flask import Flask, request
-
 from typing import Union, List, Optional
 from datetime import datetime
 from random import choice
 from threading import Timer
+
+import telebot as tb
+from flask import Flask, request
 
 import config
 import words
