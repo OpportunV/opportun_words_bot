@@ -111,3 +111,4 @@ config.py
 *.tmp
 json/dictionary.json
 json/destinations.json
+run.py
