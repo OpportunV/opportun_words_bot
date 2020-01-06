@@ -83,7 +83,7 @@ def init_bot(token: str, url: Optional[str] = None, app: Optional[Flask] = None)
     replies = jh.get_replies()
 
     utc1 = datetime.utcnow()
-    dt = (datetime(utc1.year, utc1.month, utc1.day, 18, 25, 0) - utc1).total_seconds()
+    dt = (datetime(utc1.year, utc1.month, utc1.day, 19, 0, 0) - utc1).total_seconds()
     dt = (dt + config.send_delta_time) % config.send_delta_time
     t = Timer(dt, on_timer_sender)
     t.start()
